@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-04 15:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: pv_analytics/api/v1/admin/serializers.py:16
+msgid "It must contain only letters, digits, - or _, without whitespaces."
+msgstr ""
+
+#: pv_analytics/api/v1/base/api.py:28
+msgid "Будь ласка, надайте логін та пароль."
+msgstr ""
+
+#: pv_analytics/api/v1/base/api.py:38
+msgid "Невірні дані."
+msgstr ""
+
+#: pv_analytics/api/v1/base/api.py:43
+msgid "Акаунт заблоковано."
+msgstr ""
+
+#: pv_analytics/api/v1/base/api.py:84
+msgid "Неможливо змінити пароль на такий же."
+msgstr ""
+
+#: pv_analytics/api/v1/base/api.py:88
+msgid "Новий пароль збережено."
+msgstr ""
+
+#: pv_analytics/api/v1/base/serializers.py:31
+#: pv_analytics/api/v1/base/serializers.py:33
+msgid "Email вже існує"
+msgstr ""
+
+#: pv_analytics/api/v1/base/serializers.py:51
+#: pv_analytics/api/v1/base/serializers.py:53
+msgid "Логін вже існує"
+msgstr ""
+
+#: pv_analytics/apps/front/views.py:11
+msgid "PV Analytics"
+msgstr ""
+
+#: pv_analytics/apps/front/views.py:21
+msgid "Admin"
+msgstr ""
+
+#: pv_analytics/settings/base.py:188
+msgid "Українська"
+msgstr ""
+
+#: pv_analytics/settings/base.py:189
+msgid "Російська"
+msgstr ""
+
+#: pv_analytics/templates/sections/base.html:17
+msgid ""
+"We're sorry but our site doesn't work properly without JavaScript enabled. "
+"Please enable it to continue."
+msgstr ""
+
+#: pv_analytics/utils/mixins.py:30
+msgid "Експортувати вибрані об'єкти у .csv"
+msgstr ""

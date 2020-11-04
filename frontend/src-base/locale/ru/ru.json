@@ -1,0 +1,151 @@
+{
+  "title": {
+    "home": {
+      "company": "PV Analytics"
+    },
+    "general": {
+      "user_settings": {
+        "change_data": "Изменить данные",
+        "change_password": "Изменить пароль"
+      }
+    },
+    "admin": {
+      "admin_section": "PV Analytics адмін",
+      "user_settings": "Настройки"
+    }
+  },
+  "pages": {
+    "login": {
+      "admin": {
+        "welcome": "Авторизація"
+      },
+      "user": {
+        "login_title": "Увійти",
+        "welcome": "Вітаємо!"
+      },
+      "footer": {
+        "text": "Текст футера"
+      }
+    }
+  },
+  "links": {
+    "admin": {
+      "go_back": "Назад"
+    }
+  },
+  "multiselect": {
+    "placeholder": "Выберіть {field}",
+    "cannot_deselect": "Неможливо видалити значення",
+    "select_label": "Вібрати",
+    "deselect_label": "Видалити",
+    "selected_label": "Вибране",
+    "single_label": {
+      "boolean": {
+        "true": "Так",
+        "false": "Ні"
+      }
+    }
+  },
+  "table": {
+    "general": {
+      "button_filters": "Фільтри",
+      "search": "Пошук",
+      "button_edit": "Редагувати",
+      "button_delete": "Видалити",
+      "no_data": "Немає даних"
+    }
+  },
+  "modal": {
+    "general": {
+      "ok_button": "ОК",
+      "cancel_button": "Відминити"
+    }
+  },
+  "auth": {
+    "field": {
+      "username": "Логін",
+      "login": "Увійти",
+      "password": "Пароль"
+    },
+    "login": "Введіть ваш логін",
+    "password": "Введіть ваш пароль",
+    "email": "Enter your email",
+    "placeholder_login": "Логін",
+    "placeholder_password": "Пароль",
+    "login_button": "Увійти",
+    "sign_in": "Увійти"
+  },
+  "error": {
+    "permission_denied": "Ви не маєте права цього робити",
+    "internal_error": "Зверніться до підтримки"
+  },
+  "notifications": {
+    "title": {
+      "success": "Успіх",
+      "warning": "Увага",
+      "error": "Помилка"
+    },
+    "text": {
+      "user_settings": {
+        "success_user_updated": "Користувача оновлено.",
+        "warning_user_data_identical": "Неможливо змінити дані на такі ж.",
+        "warning_passwords_identical": "Неможливо змінити пароль на такий же.",
+        "success_password_updated": "Пароль змінено."
+      }
+    }
+  },
+  "validation": {
+    "between": "{field} не може бути менше ніж {min_amount} і більше за {max_amount}.",
+    "required": "{field} має бути обов'язково.",
+    "length_min_max": "{field} має мати не менш {minLength} символів and не більше {maxLength} символів.",
+    "min_length": "{field} має мати менше ніж {minLength} символів.",
+    "max_length": "{field} не може мати більше ніж {maxLength} символів.",
+    "min_value": "{field} не має бути менше ніж {min_value}",
+    "same_as": "{field} мають бути ідентичними.",
+    "email": "Уведіть коректний email.",
+    "numeric": "{field} має бути числом.",
+    "integer": "{field} приймає тільки позитивні на негативні цілі числа.",
+    "decimal": "{field} має бути числом ибо десятковим числом (15, 4.55).",
+    "alpha_num": "{field} має містити тільки числа та букви без пробілів.",
+    "alpha": "{field} має містити тільки букви без пробілів.",
+    "alpha_spaces": "{field} має містити тільки букви з пробілами.",
+    "date_range": "Виберіть діапазон дат.",
+    "required_if_field": "{mainField} обов'язкове, якщо {dependentField} заповнене."
+  },
+  "navigation": {
+    "general": {
+      "logout": "Вийти",
+      "log_in": "Увійти",
+      "settings": "Настройки"
+    }
+  },
+  "form": {
+    "general": {
+      "actions": "Дії"
+    },
+    "user_settings": {
+      "old_password": "Старий пароль",
+      "new_password1": "Новий пароль",
+      "new_password2": "Повторно введіть новий пароль",
+      "email": "Email",
+      "username": "Логін",
+      "button_apply": "Застосувати",
+      "button_reset": "Відновити",
+      "placeholder_email": "Email",
+      "placeholder_password": "Пароль",
+      "placeholder_username": "Логін"
+    }
+  },
+  "filter": {
+    "by": {
+    },
+    "apply_button": "Застосувати",
+    "reset_button": "Відновити",
+    "title": "Фільтри"
+  },
+  "page_not_found": {
+    "header": "Ох...",
+    "text": "Сторінка не знайдена...",
+    "text_button": "Повернутися"
+  }
+}

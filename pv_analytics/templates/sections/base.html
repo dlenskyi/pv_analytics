@@ -1,0 +1,49 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=11">
+    </head>
+
+    <body>
+      <noscript>
+          <strong>{% trans "We're sorry but our site doesn't work properly without JavaScript enabled. Please enable it to continue." %}</strong>
+      </noscript>
+
+      <div id="app">
+
+      </div>
+
+      {% if not settings.DEBUG %}
+        {% render_bundle 'chunk-common' 'js' 'SECTIONS' %}
+        {% render_bundle 'chunk-vendors' 'js' 'SECTIONS' %}
+        {% render_bundle 'chunk-vendors' 'css' 'SECTIONS' %}
+        {% render_bundle 'chunk-common' 'css' 'SECTIONS' %}
+      {% endif %}
+
+{#      Here we pass all constants from django to vue#}
+      <script>
+        const LANGUAGE_CODE = "{{ LANGUAGE_CODE }}";
+      </script>
+
+      {% block js_application %}
+      {% endblock %}
+    </body>
+
+    <script>
+      function changeLanguageRequest (formId) {
+        let form = document.getElementById(formId);
+
+        form.elements[2].value = window.location.hash;
+        form.submit()
+      }
+    </script>
+
+</html>

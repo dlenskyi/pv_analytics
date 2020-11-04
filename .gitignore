@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+pv_analytics/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Config files
+.env
+
+# Local settings
+local.py
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django stuff
+*.log
+db.sqlite3
+db.sqlite_log
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# Editor directories and files
+.idea
+.vs
+.history
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Static files
+/media
+/static
+pv_analytics/static/sections_dist
+frontend/webpack-stats.json
+webpack-stats.json
+debug.log
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/.dist/
+frontend/package-lock.json
+npm-debug.log
+yarn-error.log
+
+# Translations
+*.mo
+*.pot
+locale/*.pot
+locale/en/LC_MESSAGES/*.mo
+locale/de/LC_MESSAGES/*.mo
+locale/da/LC_MESSAGES/*.mo
+
+# Other
+.DS_Store

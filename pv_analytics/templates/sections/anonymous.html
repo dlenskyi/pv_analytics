@@ -1,0 +1,7 @@
+{% extends 'sections/base.html' %}
+{% load render_bundle from webpack_loader %}
+
+{% block js_application %}
+  {% render_bundle 'anonymous' 'js' 'SECTIONS' %}
+  {% render_bundle 'anonymous' 'css' 'SECTIONS' %}
+{% endblock %}
