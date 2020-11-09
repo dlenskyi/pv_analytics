@@ -26,11 +26,7 @@ class Client:
         if json:
             data = json.dumps(json)
         response = requests.request(
-            method=method,
-            url=url,
-            data=data,
-            headers=self.headers,
-            **kwargs,
+            method=method, url=url, data=data, headers=self.headers, **kwargs,
         )
         try:
             response.raise_for_status()

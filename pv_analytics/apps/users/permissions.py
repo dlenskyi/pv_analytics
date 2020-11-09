@@ -14,3 +14,12 @@ class IsAuthenticated(BasePermission):
             and request.user.is_authenticated
             and request.user.is_active
         )
+
+
+class IsAdmin(BasePermission):
+    """
+    Check if the user is an admin
+    """
+
+    def has_permission(self, request, view):
+        return request.user.is_superuser

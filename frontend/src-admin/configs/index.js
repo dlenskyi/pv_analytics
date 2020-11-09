@@ -5,6 +5,10 @@ export const customerApiUrl = `${apiConfig.baseURL}/customer`
 
 export const NAV_ITEMS = [
   {
+    href: { name: 'meter-data' },
+    text: i18n.t('navigation.admin.meter_data')
+  },
+  {
     href: { name: 'settings' },
     text: i18n.t('navigation.general.settings')
   },

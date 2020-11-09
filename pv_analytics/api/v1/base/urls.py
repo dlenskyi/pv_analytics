@@ -14,24 +14,12 @@ router = routers.DefaultRouter()
 # ...
 
 urlpatterns = [
-    path(
-        'auth/',
-        AuthApiView.as_view(),
-        name='auth',
-    ),
-    path(
-        'logout/',
-        LogoutApiView.as_view(),
-        name='logout',
-    ),
+    path('auth/', AuthApiView.as_view(), name='auth',),
+    path('logout/', LogoutApiView.as_view(), name='logout',),
     path(
         'password/change/',
         CustomPasswordChangeView.as_view(),
         name='password-change',
     ),
-    path(
-        'user/',
-        UserApiView.as_view(),
-        name='user',
-    ),
+    path('user/', UserApiView.as_view(), name='user',),
 ] + router.urls  # adding routes to urls

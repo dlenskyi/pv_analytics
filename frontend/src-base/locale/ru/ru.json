@@ -5,27 +5,24 @@
     },
     "general": {
       "user_settings": {
-        "change_data": "Изменить данные",
-        "change_password": "Изменить пароль"
+        "change_data": "Змінити дані",
+        "change_password": "Змінити пароль"
       }
     },
     "admin": {
       "admin_section": "PV Analytics адмін",
-      "user_settings": "Настройки"
+      "user_settings": "Налаштування",
+      "meter_data": "Дані лічильників"
     }
   },
   "pages": {
     "login": {
       "admin": {
         "welcome": "Авторизація"
-      },
-      "user": {
-        "login_title": "Увійти",
-        "welcome": "Вітаємо!"
-      },
-      "footer": {
-        "text": "Текст футера"
       }
+    },
+    "footer": {
+      "text": "Текст футера"
     }
   },
   "links": {
@@ -53,12 +50,24 @@
       "button_edit": "Редагувати",
       "button_delete": "Видалити",
       "no_data": "Немає даних"
+    },
+    "correction_data": {
+      "title": "Історія зкоректованих значень"
     }
   },
   "modal": {
     "general": {
       "ok_button": "ОК",
       "cancel_button": "Відминити"
+    },
+    "meter_data": {
+      "title_edit": "Змінити дані об'єкту #{id}",
+      "show_history": "Показати історію версій"
+    },
+    "correction_data": {
+      "title": "Історія зкоректованих значень",
+      "title_delete": "Видалити коректування",
+      "text_delete": "Ви впевнені, що хочете видалити це значення?"
     }
   },
   "auth": {
@@ -91,6 +100,12 @@
         "warning_user_data_identical": "Неможливо змінити дані на такі ж.",
         "warning_passwords_identical": "Неможливо змінити пароль на такий же.",
         "success_password_updated": "Пароль змінено."
+      },
+      "meter_data": {
+        "success_data_edited": "Дані було змінено."
+      },
+      "correction_data": {
+        "success_correction_data_deleted": "Зкоректоване значення було видалено."
       }
     }
   },
@@ -116,7 +131,10 @@
     "general": {
       "logout": "Вийти",
       "log_in": "Увійти",
-      "settings": "Настройки"
+      "settings": "Налаштування"
+    },
+    "admin": {
+      "meter_data": "Дані лічильника"
     }
   },
   "form": {
@@ -134,6 +152,25 @@
       "placeholder_email": "Email",
       "placeholder_password": "Пароль",
       "placeholder_username": "Логін"
+    },
+    "meter_data": {
+      "id": "ID",
+      "device_id": "ID пристрою",
+      "date": "Дата",
+      "day_total": "Днів загалом",
+      "value": "Значення",
+      "message": "Повідомлення",
+      "help_text": {
+        "value": "Позначте нове значення",
+        "message": "Зазначте причину зміни значення"
+      }
+    },
+    "correction_data": {
+      "meter_data_id": "ID запису",
+      "key": "Номер лічильника",
+      "value": "Зкоректоване значення",
+      "message": "Причина",
+      "date": "Дата"
     }
   },
   "filter": {

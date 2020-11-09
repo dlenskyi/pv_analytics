@@ -4,7 +4,8 @@ from rest_auth.serializers import PasswordChangeSerializer
 from rest_framework import (
     viewsets,
     views,
-    generics, status,
+    generics,
+    status,
 )
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -12,13 +13,13 @@ from django.utils.translation import gettext as _
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN
 
 from pv_analytics.apps.users.permissions import IsAuthenticated
-from .serializers import (
-    UserSerializer,
-)
+from .serializers import UserSerializer
 
 
 class AuthApiView(generics.GenericAPIView):
-    permission_classes = [AllowAny, ]
+    permission_classes = [
+        AllowAny,
+    ]
 
     def post(self, request, *args, **kwargs):
         required_params = ['username', 'password']
@@ -35,8 +36,7 @@ class AuthApiView(generics.GenericAPIView):
 
         if not user:
             return Response(
-                {'error': _('Невірні дані.')},
-                status=HTTP_400_BAD_REQUEST,
+                {'error': _('Невірні дані.')}, status=HTTP_400_BAD_REQUEST,
             )
         if not user.is_active:
             return Response(
@@ -45,14 +45,15 @@ class AuthApiView(generics.GenericAPIView):
 
         login(request, user)
 
-        return Response({
-            'username': user.username,
-            'is_admin': user.is_superuser
-        })
+        return Response(
+            {'username': user.username, 'is_admin': user.is_superuser}
+        )
 
 
 class LogoutApiView(generics.GenericAPIView):
-    permission_classes = [AllowAny, ]
+    permission_classes = [
+        AllowAny,
+    ]
 
     def post(self, request, *args, **kwargs):
         logout(request)
@@ -89,7 +90,9 @@ class CustomPasswordChangeView(generics.GenericAPIView):
 
 
 class UserApiView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
     serializer_class = UserSerializer
 
     def get(self, request):

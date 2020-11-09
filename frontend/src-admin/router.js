@@ -8,6 +8,8 @@ import { getToken } from '@base/store'
 import NotFoundPage from '@base/components/NotFoundPage.vue'
 import SettingsView from '@base/views/SettingsView.vue'
 import BasePage from '@admin/views/BasePage.vue'
+import MeterDataView from '@admin/views/MeterDataView.vue'
+import CorrectionDataView from '@admin/views/CorrectionDataView.vue'
 
 createMiddleware('require-auth', (args, to, from, next) => {
   if (!store.state.user.isAuthenticated) {
@@ -41,9 +43,19 @@ const routes = [
   ...middleware('require-auth', [{
     path: '/',
     name: 'base',
-    redirect: 'settings/',
+    redirect: 'meter_data',
     component: BasePage,
     children: [
+      {
+        path: 'meter_data',
+        name: 'meter-data',
+        component: MeterDataView,
+      },
+      {
+        path: 'corrected_data/:meterDataId',
+        name: 'corrected-data',
+        component: CorrectionDataView,
+      },
       {
         path: 'settings',
         name: 'settings',

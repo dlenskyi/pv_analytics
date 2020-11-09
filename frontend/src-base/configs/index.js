@@ -31,6 +31,8 @@ export const MIN_USERNAME_LENGTH = 4
 export const MAX_USERNAME_LENGTH = 20
 export const MIN_PASSWORD_LENGTH = 8
 
+export const METER_QUANTITY = 50
+
 export const BOOLEAN_OPTIONS = [
   { value: true, name: i18n.t('multiselect.single_label.boolean.true') },
   { value: false, name: i18n.t('multiselect.single_label.boolean.false') }

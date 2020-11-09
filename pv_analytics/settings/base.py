@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'django_filters',
     'pv_analytics.apps.users',
     'pv_analytics.apps.front',
+    'pv_analytics.apps.initial_pv_data',
+    'pv_analytics.apps.corrected_pv_data',
     'pv_analytics.api',
     'debug_toolbar',
 ]
@@ -147,6 +149,14 @@ if DATABASE_LOCAL:
             'HOST': env('DB_LOCAL_HOST'),
             'PORT': env('DB_LOCAL_PORT'),
         },
+        'remote': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('REMOTE_DB_NAME'),
+            'USER': env('REMOTE_DB_USER'),
+            'PASSWORD': env('REMOTE_DB_PASS'),
+            'HOST': env('REMOTE_DB_HOST'),
+            'PORT': env('REMOTE_DB_PORT'),
+        },
     }
 else:
     DATABASES = {
@@ -157,6 +167,14 @@ else:
             'PASSWORD': env('DB_PASS'),
             'HOST': env('DB_HOST'),
             'PORT': '5432',  # Set to empty string for default.
+        },
+        'remote': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('REMOTE_DB_NAME'),
+            'USER': env('REMOTE_DB_USER'),
+            'PASSWORD': env('REMOTE_DB_PASS'),
+            'HOST': env('REMOTE_DB_HOST'),
+            'PORT': env('REMOTE_DB_PORT'),
         },
     }
 
@@ -190,7 +208,7 @@ LANGUAGES = (
     ('ru', _('Російська')),
 )
 
-LOCALE_PATHS = ((BASE_DIR / 'locale'),)
+LOCALE_PATHS = ((PROJECT_ROOT / 'locale'),)
 
 TIME_ZONE = 'Europe/Kiev'
 
@@ -261,3 +279,7 @@ MAX_NAME_FIELD_LENGTH = 20
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 ACCOUNT_USERNAME_MAX_LENGTH = 20
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
+
+# Pagination settings
+PAGE_SIZE = 20
+MAX_PAGE_SIZE = 20
