@@ -4,6 +4,7 @@ from pv_analytics.apps.users.permissions import (
     IsAuthenticated,
     IsAdmin,
 )
+from pv_analytics.utils.api_filters import MeterP30DataFilter
 from pv_analytics.utils.mixins import ViewSetPagination
 from pv_analytics.apps.initial_pv_data.models import MeterP30Data
 from pv_analytics.apps.corrected_pv_data.models import CorrectedMeterP30Data
@@ -20,7 +21,8 @@ class MeterP30DataViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = MeterP30DataModelSerializer
     pagination_class = ViewSetPagination
-    queryset = MeterP30Data.objects.using('remote').all()
+    queryset = MeterP30Data.objects.using('remote').select_related('meter').all()
+    filterset_class = MeterP30DataFilter
 
 
 class CorrectedMeterP30DataViewSet(viewsets.ModelViewSet):

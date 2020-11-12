@@ -7,7 +7,9 @@ from django.utils.translation import (
 )
 
 from rest_framework import serializers
-from pv_analytics.apps.initial_pv_data.models import MeterP30Data
+from pv_analytics.apps.initial_pv_data.models import (
+    MeterP30Data,
+)
 from pv_analytics.apps.corrected_pv_data.models import CorrectedMeterP30Data
 
 
@@ -20,6 +22,15 @@ def update_ordered_dict(old_dict):
 
 
 class MeterP30DataModelSerializer(serializers.ModelSerializer):
+    device_name = serializers.SerializerMethodField()
+    site_name = serializers.SerializerMethodField()
+
+    def get_device_name(self, obj):
+        return obj.meter.name or obj.meter.id
+
+    def get_site_name(self, obj):
+        if obj.meter.site:
+            return obj.meter.site.displayable_name
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -27,7 +38,9 @@ class MeterP30DataModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MeterP30Data
-        fields = '__all__'
+        exclude = (
+            'meter',
+        )
 
 
 class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):

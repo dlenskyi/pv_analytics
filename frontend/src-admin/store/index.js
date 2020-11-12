@@ -96,7 +96,9 @@ export default new Vuex.Store({
     [actionTypes.GET_INITIAL_METER_DATA]({ state, commit }) {
       initialMeterData.defaults.params.page = state.initialMeterDataArg.page
       return new Promise((resolve, reject) => {
-        initialMeterData()
+        initialMeterData({
+          params: state.initialMeterDataArg.filters
+        })
           .then(response => {
             commit(mutationTypes.SET_INITIAL_METER_DATA, response.data.results)
             resolve(response.data)

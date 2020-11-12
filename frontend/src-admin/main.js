@@ -15,11 +15,13 @@ import moment from 'moment'
 import 'moment/locale/uk'
 import 'moment/locale/ru'
 import Notifications from 'vue-notification'
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import Paginate from 'vuejs-paginate'
 import Multiselect from 'vue-multiselect'
 
 // CSS
 import 'vue-loading-overlay/dist/vue-loading.css'
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
 import '@base/styles/ourStyles.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -34,6 +36,7 @@ Vue.use(BootstrapVueIcons)
 
 Vue.component('paginate', Paginate)
 Vue.component('multiselect', Multiselect)
+Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker)
 
 Vue.config.devtools = process.env.VUE_APP_DEVTOOLS || false
 

@@ -23,6 +23,9 @@
     },
     "footer": {
       "text": "Текст футера"
+    },
+    "meter_data": {
+      "date_hint": "Виберіть діапазон дат"
     }
   },
   "links": {
@@ -58,7 +61,7 @@
   "modal": {
     "general": {
       "ok_button": "ОК",
-      "cancel_button": "Відминити"
+      "cancel_button": "Відмінити"
     },
     "meter_data": {
       "title_edit": "Змінити дані об'єкту #{id}",
@@ -155,7 +158,8 @@
     },
     "meter_data": {
       "id": "ID",
-      "device_id": "ID пристрою",
+      "device_name": "Назва пристрою",
+      "site_name": "Назва площадки",
       "date": "Дата",
       "day_total": "Днів загалом",
       "value": "Значення",
@@ -175,6 +179,11 @@
   },
   "filter": {
     "by": {
+      "meter_data": {
+        "date": "По діапазону дат",
+        "device": "По пристрою",
+        "site": "По площадці"
+      }
     },
     "apply_button": "Застосувати",
     "reset_button": "Відновити",
