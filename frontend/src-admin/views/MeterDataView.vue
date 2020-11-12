@@ -31,8 +31,19 @@
         <template
           :slot="templateObj.name"
           slot-scope="data"
-          v-for="templateObj in templates.slice(1, templates.length)"
-        >{{ data.tbl.item[templateObj.field].value }}</template>
+          v-for="(templateObj, id) in templates.slice(1, templates.length)"
+        >
+          <span
+            :key="id"
+            v-if="data.tbl.item[templateObj.field].correctedMessage"
+            v-b-tooltip.hover
+            :title="data.tbl.item[templateObj.field].correctedMessage"
+          >{{ data.tbl.item[templateObj.field].value }}</span>
+          <span
+            :key="id"
+            v-else
+          >{{ data.tbl.item[templateObj.field].value }}</span>
+        </template>
       </content-table>
       <span v-if="!loader.isActive && !initialMeterData.length" class="no-table-data">
         {{ $t('table.general.no_data') }}
@@ -237,6 +248,7 @@
             const lastCorrectedData = correctionList[0]
             meterObj[parseInt(lastCorrectedData.key)] = {
               'value': lastCorrectedData.value,
+              'correctedMessage': lastCorrectedData.message,
               'corrections': correctionList
             }
             meterObj['_cellVariants'] = Object.assign({[parseInt(lastCorrectedData.key)]: 'primary'}, meterObj['_cellVariants'])
