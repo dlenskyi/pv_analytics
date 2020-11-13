@@ -59,11 +59,13 @@
           prev-class="btn btn-primary"
           next-class="btn btn-primary"
           active-class="active-class"
+          :next-text="$t('pagination.next')"
+          :prev-text="$t('pagination.prev')"
           :click-handler="clickPaginationCallback" />
       </div>
-      <edit-data-modal
+      <create-correction-modal
         @objectUpdated="setData"
-        modalId="edit-data"
+        modalId="create-correction"
         v-if="selectedObject"
         :selectedObject="selectedObject"/>
     </b-container>
@@ -74,7 +76,7 @@
 
   import { mapState, mapGetters } from 'vuex'
   import ContentTable from '@base/components/ContentTable'
-  import EditDataModal from '@admin/components/EditDataModal.vue'
+  import CreateCorrectionModal from '@admin/components/CreateCorrectionModal.vue'
   import MeterDataFilter from '@admin/components/MeterDataFilter.vue'
   import { METER_QUANTITY } from '@base/configs'
   import HeadBlock from '@base/components/HeadBlock.vue'
@@ -86,7 +88,7 @@
     components: {
       HeadBlock,
       ContentTable,
-      EditDataModal,
+      CreateCorrectionModal,
       MeterDataFilter,
     },
 
@@ -103,8 +105,9 @@
     },
 
     created () {
-      // this.getInitialMeterData()
       this.getCorrectedMeterData()
+        .then(this.getInitialMeterData)
+        .then(this.setData)
     },
 
     watch: {
@@ -123,7 +126,7 @@
       fields () {
         // Generate fields
         const fields = []
-        fields.push({ key: 'id', label: this.$t('form.meter_data.id'), class: 'text-center', tdClass: 'p-0', })
+        fields.push({ key: 'id', label: this.$t('form.meter_data.id'), class: 'text-center', tdClass: 'cursor-pointer p-0', })
         fields.push({ key: 'device_name', label: this.$t('form.meter_data.device_name'), class: 'text-center', tdClass: 'p-0', })
         fields.push({ key: 'site_name', label: this.$t('form.meter_data.site_name'), class: 'text-center', tdClass: 'p-0', })
         fields.push({ key: 'date', label: this.$t('form.meter_data.date'), class: 'text-center', tdClass: 'p-0', })
@@ -133,7 +136,7 @@
             key: meter_index.toString(),
             label: meter_index.toString(),
             class: 'text-center',
-            tdClass: 'cursor-pointer p-0',
+            tdClass: 'p-0',
           }
           fields.push(fieldObj)
         }
@@ -181,26 +184,29 @@
       applyFilters (filters) {
         this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_FILTERS, filters)
         this.getInitialMeterData()
+          .then(this.setData)
       },
 
       getInitialMeterData () {
-        if (this.loading)
-          return
-        this.loading = true
-        this.loader = this.$loading.show(this.$_loaderOptions)
-        this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_PAGE, 1)
-        this.$store.dispatch(this.$_actionTypes.GET_INITIAL_METER_DATA)
-          .then((res) => {
-            this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_PAGES_COUNT, res.total_pages)
-            this.setData()
-          })
-          .catch((error) => {
-            this.$_notifyError(error, this)
-          })
-          .finally(() => {
-            this.loader.hide()
-            this.loading = false
-          })
+        return new Promise((resolve) => {
+          if (this.loading)
+            return
+          this.loading = true
+          this.loader = this.$loading.show(this.$_loaderOptions)
+          this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_PAGE, 1)
+          this.$store.dispatch(this.$_actionTypes.GET_INITIAL_METER_DATA)
+            .then((res) => {
+              this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_PAGES_COUNT, res.total_pages)
+            })
+            .catch((error) => {
+              this.$_notifyError(error, this)
+            })
+            .finally(() => {
+              this.loader.hide()
+              this.loading = false
+              resolve()
+            })
+        })
       },
 
       getDayTotal (obj) {
@@ -212,19 +218,21 @@
       },
 
       getCorrectedMeterData () {
-        if (this.loading)
-          return
-        this.loading = true
-        this.loader = this.$loading.show(this.$_loaderOptions)
-        this.$store.dispatch(this.$_actionTypes.GET_CORRECTED_METER_DATA)
-          .catch((error) => {
-            this.$_notifyError(error, this)
-          })
-          .finally(() => {
-            this.loader.hide()
-            this.loading = false
-            this.getInitialMeterData()
-          })
+        return new Promise((resolve) => {
+          if (this.loading)
+            return
+          this.loading = true
+          this.loader = this.$loading.show(this.$_loaderOptions)
+          this.$store.dispatch(this.$_actionTypes.GET_CORRECTED_METER_DATA)
+            .catch((error) => {
+              this.$_notifyError(error, this)
+            })
+            .finally(() => {
+              this.loader.hide()
+              this.loading = false
+              resolve()
+            })
+        })
       },
 
       setData () {
@@ -246,31 +254,50 @@
           }
           if (correctionList.length) {
             const lastCorrectedData = correctionList[0]
-            meterObj[parseInt(lastCorrectedData.key)] = {
-              'value': lastCorrectedData.value,
-              'correctedMessage': lastCorrectedData.message,
-              'corrections': correctionList
+            for (const [key, val] of lastCorrectedData.values.entries()) {
+              if (meterObj[key + 1].value !== val)
+                meterObj['_cellVariants'] = Object.assign({[key + 1]: 'primary'}, meterObj['_cellVariants'])
+              meterObj[key + 1] = {
+                'value': val,
+                'correctedMessage': lastCorrectedData.message,
+                'corrections': correctionList
+              }
             }
-            meterObj['_cellVariants'] = Object.assign({[parseInt(lastCorrectedData.key)]: 'primary'}, meterObj['_cellVariants'])
           }
           this.items.push(meterObj)
         }
       },
 
       onRowClicked (item, e) {
-        // If user clicked on fields that don't include data - do nothing
-        // Minus 4 because we have first 5 fields (indexing starts with 0) other than data that begins with 1
-        const clickedIndex = e.target.cellIndex - 4
-        if (Object.keys(item).includes(clickedIndex.toString())) {
+        if (e.target.cellIndex === 0) {
+          const values = []
+          for (let meter_index = 1; meter_index <= METER_QUANTITY; meter_index++) {
+            values.push({
+              key: meter_index,
+              value: item[meter_index].value
+            })
+          }
           this.selectedObject = {
-            cellIndex: clickedIndex,
-            cellValue: item[clickedIndex].value,
             item: item,
+            values: values,
           }
           this.$nextTick(() => {
-            this.$bvModal.show('edit-data')
+            this.$bvModal.show('create-correction')
           })
         }
+        // If user clicked on fields that don't include data - do nothing
+        // Minus 4 because we have first 5 fields (indexing starts with 0) other than data that begins with 1
+        // const clickedIndex = e.target.cellIndex - 4
+        // if (Object.keys(item).includes(clickedIndex.toString())) {
+        //   this.selectedObject = {
+        //     cellIndex: clickedIndex,
+        //     cellValue: item[clickedIndex].value,
+        //     item: item,
+        //   }
+        //   this.$nextTick(() => {
+        //     this.$bvModal.show('create-correction')
+        //   })
+        // }
       },
     }
   }

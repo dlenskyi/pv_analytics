@@ -21,7 +21,7 @@ class MeterP30DataViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = MeterP30DataModelSerializer
     pagination_class = ViewSetPagination
-    queryset = MeterP30Data.objects.using('remote').select_related('meter').all()
+    queryset = MeterP30Data.objects.using('remote').select_related('meter').all().order_by('-id')
     filterset_class = MeterP30DataFilter
 
 

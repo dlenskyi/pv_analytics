@@ -46,8 +46,7 @@ class MeterP30DataModelSerializer(serializers.ModelSerializer):
 class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):
     message = serializers.CharField(required=True)
     meter_data_id = serializers.IntegerField(required=True)
-    key = serializers.CharField(required=True)
-    value = serializers.IntegerField(required=True)
+    values = serializers.ListField(required=True)
 
     class Meta:
         model = CorrectedMeterP30Data

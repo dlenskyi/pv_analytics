@@ -6,10 +6,8 @@ class CorrectedMeterP30DataAdmin(admin.ModelAdmin):
     model = CorrectedMeterP30Data
 
     list_display = [
-        'id',
         'meter_data_id',
-        'key',
-        'value',
+        'values',
         'message',
         'date',
     ]

@@ -69,12 +69,7 @@
             class: 'text-center',
           },
           {
-            key: 'key',
-            label: this.$t('form.correction_data.key'),
-            class: 'text-center',
-          },
-          {
-            key: 'value',
+            key: 'values',
             label: this.$t('form.correction_data.value'),
             class: 'text-center',
           },

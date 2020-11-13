@@ -6,6 +6,26 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
+
+
+class Balance(models.Model):
+    id = models.CharField(primary_key=True, unique=True, max_length=250)
+    site = models.ForeignKey('Sites', models.DO_NOTHING, db_column='site')
+    date = models.DateField()
+    time_indexes_utc = ArrayField(
+        models.DateTimeField(),
+        blank=True
+    )
+    energy = ArrayField(
+        models.IntegerField(),
+        blank=True
+    )
+    version = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'balance'
 
 
 class Equipment(models.Model):
@@ -32,6 +52,25 @@ class ForecastLogbook(models.Model):
     class Meta:
         managed = False
         db_table = 'forecast_logbook'
+
+
+class ForecastsApplied(models.Model):
+    id = models.CharField(primary_key=True, unique=True, max_length=250)
+    site = models.ForeignKey('Sites', models.DO_NOTHING, db_column='site')
+    date = models.DateField()
+    time_indexes_utc = ArrayField(
+        models.DateTimeField(),
+        blank=True
+    )
+    energy = ArrayField(
+        models.IntegerField(),
+        blank=True
+    )
+    is_initial = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'forecasts_applied'
 
 
 class InverterData(models.Model):
