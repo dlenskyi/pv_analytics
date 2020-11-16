@@ -21,4 +21,12 @@ class BalancesFilter(filters.FilterSet):
         field_name='date', lookup_expr='gte'
     )
     date_end = filters.CharFilter(field_name='date', lookup_expr='lte')
-    site = filters.CharFilter(field_name='site__displayable_name', lookup_expr='icontains')
+    site = filters.CharFilter(method='site_filter')
+
+    def site_filter(self, queryset, name, value):
+        # Since we get multiple site names in query_params, we need to filter
+        # all sites that are in this list
+        sites = self.request.query_params.getlist('site')
+        return queryset.using('remote').filter(
+            site__displayable_name__in=sites
+        )

@@ -38,12 +38,20 @@
           :label="$t('filter.by.meter_data.site')"
           label-for="site"
         >
-          <b-form-input
+          <multiselect
             id="site"
-            style="height: 42px;"
-            v-model="filterModels.site"
-            :placeholder="$t('form.meter_data.site_name')"
-          ></b-form-input>
+            :select-label="$t('multiselect.select_label')"
+            :deselect-label="$t('multiselect.deselect_label')"
+            :selected-label="$t('multiselect.selected_label')"
+            v-model="filterModels.sites"
+            :placeholder="$t('multiselect.placeholder', {
+              field: $t('form.meter_data.site_name_multiselect').toLowerCase()
+            })"
+            :searchable="true"
+            :multiple="true"
+            :close-on-select="false"
+            :options="sites">
+          </multiselect>
         </b-form-group>
       </div>
 
@@ -72,13 +80,14 @@
 
   import { DATE_FORMAT, DEFAULT_DATEPICKER_SHORTCUTS } from '@base/configs'
   import moment from 'moment'
+  import { mapState } from 'vuex'
 
   const defaultFilterModels = {
     dateRange: {
       start: null,
       end: null,
     },
-    site: '',
+    sites: [],
   }
 
   export default {
@@ -112,12 +121,13 @@
     },
 
     computed: {
+      ...mapState(['sites']),
 
       filterArgs () {
         return {
           date_start: this.filterModels.dateRange.start ? this.filterModels.dateRange.start : undefined,
           date_end: this.filterModels.dateRange.end ? this.filterModels.dateRange.end : undefined,
-          site: this.filterModels.site ? this.filterModels.site : null
+          site: this.filterModels.sites.length ? this.filterModels.sites : null
         }
       },
 

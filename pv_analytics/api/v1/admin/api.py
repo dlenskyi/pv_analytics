@@ -101,6 +101,11 @@ class BalancesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     filterset_class = BalancesFilter
 
     def get_queryset(self):
+        # If no sites passed in query_params - then just return empty list
+        sites = self.request.query_params.getlist('site')
+        if all('' == s or s.isspace() for s in sites):
+            return Balance.objects.using('remote').none()
+
         # Query record with largest version in group (By Site and date)
         group_by_expression = Balance.objects.using('remote').values(
             'site', 'date'

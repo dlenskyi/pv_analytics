@@ -22,16 +22,22 @@
         :range-min="filters.date_start"
         :range-max="filters.date_end"/>
       <span
-        v-else-if="!loader.isActive && !balances.length"
+        v-if="filters && !filters.site"
         class="no-table-data"
       >
-        {{ $t('charts.general.no_chart_data') }}
+        {{ $t('charts.general.no_chart_sites') }}
       </span>
       <span
         v-else-if="filters && !filters.date_start && !filters.date_end"
         class="no-table-data"
       >
         {{ $t('charts.general.no_chart_dates') }}
+      </span>
+      <span
+        v-else-if="!loader.isActive && !balances.length"
+        class="no-table-data"
+      >
+        {{ $t('charts.general.no_chart_data') }}
       </span>
     </b-container>
   </div>
@@ -157,8 +163,12 @@
       applyFilters (filters) {
         this.filters = filters
         this.$store.commit(this.$_mutationTypes.SET_BALANCES_FILTERS, filters)
-        this.getSites()
-          .then(this.getBalances)
+        if (!this.sites.length) {
+          this.getSites()
+            .then(this.getBalances)
+        } else {
+          this.getBalances()
+        }
       },
     }
   }

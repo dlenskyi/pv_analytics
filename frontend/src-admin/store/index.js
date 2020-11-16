@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from 'lodash'
+import qs from 'qs'
 
 import {
   baseState, baseGetters, baseMutations, baseActions,
@@ -261,7 +262,11 @@ export default new Vuex.Store({
       balances.defaults.params.page = state.balancesArg.page
       return new Promise((resolve, reject) => {
         balances({
-          params: state.balancesArg.filters
+          params: state.balancesArg.filters,
+          // for filtering by multiple site names
+          paramsSerializer: function(params) {
+            return qs.stringify(params, { indices: false })
+          }
         })
           .then(response => {
             commit(mutationTypes.SET_BALANCES, response.data)
