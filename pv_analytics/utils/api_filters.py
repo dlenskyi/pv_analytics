@@ -8,7 +8,15 @@ class MeterP30DataFilter(filters.FilterSet):
     )
     date_end = filters.CharFilter(field_name='date', lookup_expr='lte')
     device = filters.CharFilter(method='device_filter')
-    site = filters.CharFilter(field_name='meter__site__displayable_name', lookup_expr='icontains')
+    site = filters.CharFilter(method='site_filter')
+
+    def site_filter(self, queryset, name, value):
+        # Since we get multiple site names in query_params, we need to filter
+        # all sites that are in this list
+        sites = self.request.query_params.getlist('site')
+        return queryset.using('remote').filter(
+            meter__site__displayable_name__in=sites
+        )
 
     def device_filter(self, queryset, name, value):
         return queryset.using('remote').filter(

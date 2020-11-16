@@ -107,6 +107,7 @@
     created () {
       this.getCorrectedMeterData()
         .then(this.getInitialMeterData)
+        .then(this.getSites)
         .then(this.setData)
     },
 
@@ -198,6 +199,24 @@
             .then((res) => {
               this.$store.commit(this.$_mutationTypes.SET_INITIAL_METER_DATA_PAGES_COUNT, res.total_pages)
             })
+            .catch((error) => {
+              this.$_notifyError(error, this)
+            })
+            .finally(() => {
+              this.loader.hide()
+              this.loading = false
+              resolve()
+            })
+        })
+      },
+
+      getSites () {
+        return new Promise((resolve) => {
+          if (this.loading)
+            return
+          this.loading = true
+          this.loader = this.$loading.show(this.$_loaderOptions)
+          this.$store.dispatch(this.$_actionTypes.GET_SITES)
             .catch((error) => {
               this.$_notifyError(error, this)
             })

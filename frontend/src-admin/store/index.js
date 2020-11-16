@@ -187,7 +187,11 @@ export default new Vuex.Store({
       initialMeterData.defaults.params.page = state.initialMeterDataArg.page
       return new Promise((resolve, reject) => {
         initialMeterData({
-          params: state.initialMeterDataArg.filters
+          params: state.initialMeterDataArg.filters,
+          // for filtering by multiple site names
+          paramsSerializer: function(params) {
+            return qs.stringify(params, { indices: false })
+          }
         })
           .then(response => {
             commit(mutationTypes.SET_INITIAL_METER_DATA, response.data.results)
