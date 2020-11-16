@@ -40,5 +40,16 @@ export const BOOLEAN_OPTIONS = [
 
 export const DATE_FORMAT = 'DD-MM-YYYY'
 
+export const DEFAULT_DATEPICKER_SHORTCUTS = [
+  { key: 'thisWeek', label: i18n.t('datepicker.shortcuts.this_week'), value: 'isoWeek' },
+  { key: 'lastWeek', label: i18n.t('datepicker.shortcuts.last_week'), value: '-isoWeek' },
+  { key: 'last7Days', label: i18n.t('datepicker.shortcuts.last_7_days'), value: 7 },
+  { key: 'last30Days', label: i18n.t('datepicker.shortcuts.last_30_days'), value: 30 },
+  { key: 'thisMonth', label: i18n.t('datepicker.shortcuts.this_month'), value: 'month' },
+  { key: 'lastMonth', label: i18n.t('datepicker.shortcuts.last_month'), value: '-month' },
+  { key: 'thisYear', label: i18n.t('datepicker.shortcuts.this_year'), value: 'year' },
+  { key: 'lastYear', label: i18n.t('datepicker.shortcuts.last_year'), value: '-year' }
+]
+
 export const ADMIN_SECTION_PATH = '/admin_cabinet#/'
 export const DJANGO_ADMIN_PATH_NAME = 'admin/'

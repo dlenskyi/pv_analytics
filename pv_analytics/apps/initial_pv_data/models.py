@@ -10,7 +10,7 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Balance(models.Model):
-    id = models.CharField(primary_key=True, unique=True, max_length=250)
+    id = models.AutoField(primary_key=True, unique=True)
     site = models.ForeignKey('Sites', models.DO_NOTHING, db_column='site')
     date = models.DateField()
     time_indexes_utc = ArrayField(
@@ -24,7 +24,7 @@ class Balance(models.Model):
     version = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'balance'
 
 
@@ -303,7 +303,7 @@ class Sites(models.Model):
     gpee_code = models.CharField(max_length=6, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'sites'
 
 

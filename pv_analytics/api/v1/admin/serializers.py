@@ -1,24 +1,19 @@
-import re
-from collections import OrderedDict
-
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
 
 from rest_framework import serializers
+
+from pv_analytics.api.v1.admin.utils import (
+    update_ordered_dict,
+    calculate_balance,
+)
 from pv_analytics.apps.initial_pv_data.models import (
     MeterP30Data,
+    Balance,
 )
 from pv_analytics.apps.corrected_pv_data.models import CorrectedMeterP30Data
-
-
-def update_ordered_dict(old_dict):
-    return OrderedDict(
-        [(re.sub('\\D', '', k), v) if k.startswith('number_') else (k, v) for
-         k, v in
-         old_dict.items()]
-    )
 
 
 class MeterP30DataModelSerializer(serializers.ModelSerializer):
@@ -44,10 +39,27 @@ class MeterP30DataModelSerializer(serializers.ModelSerializer):
 
 
 class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):
-    message = serializers.CharField(required=True)
-    meter_data_id = serializers.IntegerField(required=True)
-    values = serializers.ListField(required=True)
+    message = serializers.CharField()
+    meter_data_id = serializers.IntegerField()
+    values = serializers.ListField()
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        # Create Balance with new version according to corrections
+        corrected_meter_p30_data_values = instance.values
+        meter_p30_data_id = instance.meter_data_id
+        calculate_balance(meter_p30_data_id, corrected_meter_p30_data_values)
+
+        return instance
 
     class Meta:
         model = CorrectedMeterP30Data
+        fields = '__all__'
+
+
+class BalanceModelSerializer(serializers.ModelSerializer):
+    site = serializers.CharField(source='site.displayable_name')
+
+    class Meta:
+        model = Balance
         fields = '__all__'

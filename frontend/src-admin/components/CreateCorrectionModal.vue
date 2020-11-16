@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import { required, integer } from 'vuelidate/lib/validators'
+  import { required, requiredIf, integer } from 'vuelidate/lib/validators'
 
   export default {
     name: 'CreateCorrectionModal',
@@ -107,7 +107,9 @@
     validations: {
       selectedValue: {
         value: {
-          required,
+          required: requiredIf(function (nestedModel) {
+            return nestedModel
+          }),
           integer
         }
       },

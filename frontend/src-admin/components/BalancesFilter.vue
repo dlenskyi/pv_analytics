@@ -31,21 +31,6 @@
           </VueCtkDateTimePicker>
         </b-form-group>
 
-        <!--DEVICE-->
-        <b-form-group
-          id="device-group"
-          class="mr-4 w-100 mh-100"
-          :label="$t('filter.by.meter_data.device')"
-          label-for="device"
-        >
-          <b-form-input
-            id="device"
-            style="height: 42px;"
-            v-model="filterModels.device"
-            :placeholder="$t('form.meter_data.device_name')"
-          ></b-form-input>
-        </b-form-group>
-
         <!--SITE-->
         <b-form-group
           id="site-group"
@@ -86,27 +71,33 @@
 <script>
 
   import { DATE_FORMAT, DEFAULT_DATEPICKER_SHORTCUTS } from '@base/configs'
+  import moment from 'moment'
 
   const defaultFilterModels = {
     dateRange: {
       start: null,
       end: null,
     },
-    device: '',
     site: '',
   }
 
   export default {
-    name: 'MeterDataFilter',
+    name: 'BalancesFilter',
 
     data () {
       return {
         filterModels: {
-          ...defaultFilterModels
+          ...defaultFilterModels,
+          dateRange: {
+            // Start of last week
+            start: moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD'),
+            // Current day
+            end: moment().format('YYYY-MM-DD'),
+          },
         },
+        defaultDatepickerShortcuts: DEFAULT_DATEPICKER_SHORTCUTS,
         dateFormat: DATE_FORMAT,
         invalidDateRange: null,
-        defaultDatepickerShortcuts: DEFAULT_DATEPICKER_SHORTCUTS,
       }
     },
 
@@ -116,13 +107,16 @@
       }
     },
 
+    created () {
+      this.sendFilteredQuery()
+    },
+
     computed: {
 
       filterArgs () {
         return {
           date_start: this.filterModels.dateRange.start ? this.filterModels.dateRange.start : undefined,
           date_end: this.filterModels.dateRange.end ? this.filterModels.dateRange.end : undefined,
-          device: this.filterModels.device ? this.filterModels.device : null,
           site: this.filterModels.site ? this.filterModels.site : null
         }
       },

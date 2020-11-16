@@ -14,3 +14,11 @@ class MeterP30DataFilter(filters.FilterSet):
         return queryset.using('remote').filter(
             Q(meter__name__icontains=value) | Q(meter__id__icontains=value)
         )
+
+
+class BalancesFilter(filters.FilterSet):
+    date_start = filters.CharFilter(
+        field_name='date', lookup_expr='gte'
+    )
+    date_end = filters.CharFilter(field_name='date', lookup_expr='lte')
+    site = filters.CharFilter(field_name='site__displayable_name', lookup_expr='icontains')

@@ -12,7 +12,8 @@
     "admin": {
       "admin_section": "PV Analytics адмін",
       "user_settings": "Налаштування",
-      "meter_data": "Дані лічильників"
+      "meter_data": "Дані лічильників",
+      "balances": "Баланси"
     }
   },
   "pages": {
@@ -56,6 +57,9 @@
     },
     "correction_data": {
       "title": "Історія зкоректованих значень"
+    },
+    "balances": {
+      "title": "Баланси"
     }
   },
   "modal": {
@@ -137,7 +141,8 @@
       "settings": "Налаштування"
     },
     "admin": {
-      "meter_data": "Дані лічильника"
+      "meter_data": "Дані лічильника",
+      "balances": "Баланси"
     }
   },
   "form": {
@@ -176,6 +181,14 @@
       "help_text": {
         "message": "Зазначте причину зміни значення"
       }
+    },
+    "balances": {
+      "id": "ID",
+      "site": "Площадка",
+      "time_indexes_utc": "Індекси за UTC",
+      "energy": "Енергія",
+      "date": "Дата",
+      "version": "Версія"
     }
   },
   "filter": {
@@ -198,5 +211,26 @@
   "pagination": {
     "prev": "Назад",
     "next": "Далі"
+  },
+  "charts": {
+    "general": {
+      "no_chart_data": "Для вибраного діапазону дат та площадок немає даних.",
+      "no_chart_dates": "Для отримання графіку виберіть діапазон дат."
+    },
+    "balances": {
+      "title": "Баланси за {startDate} - {endDate}"
+    }
+  },
+  "datepicker": {
+    "shortcuts": {
+      "this_week": "Цей тиждень",
+      "last_week": "Минулий тиждень",
+      "last_7_days": "Останні 7 днів",
+      "last_30_days": "Останні 30 днів",
+      "this_month": "Цей місяць",
+      "last_month": "Минулий місяць",
+      "this_year": "Цей рік",
+      "last_year": "Минулий рік"
+    }
   }
 }

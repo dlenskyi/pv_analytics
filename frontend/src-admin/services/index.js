@@ -30,4 +30,22 @@ export const correctedDataByMeter = axios.create({
   },
 })
 
+export const balances = axios.create({
+  baseURL: `${adminApiConfig.baseURL}/balances/`,
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  params: {
+    page: null
+  }
+})
 
+
+export const sites = axios.create({
+  baseURL: `${adminApiConfig.baseURL}/sites/`,
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+})

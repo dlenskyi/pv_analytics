@@ -18,6 +18,7 @@ import Notifications from 'vue-notification'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 import Paginate from 'vuejs-paginate'
 import Multiselect from 'vue-multiselect'
+import VueGoogleCharts from 'vue-google-charts'
 
 // CSS
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -27,6 +28,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
+Vue.use(VueGoogleCharts)
 Vue.use(Notifications)
 Vue.use(Loading)
 Vue.use(Vuelidate)

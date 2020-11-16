@@ -9,6 +9,7 @@ import NotFoundPage from '@base/components/NotFoundPage.vue'
 import SettingsView from '@base/views/SettingsView.vue'
 import BasePage from '@admin/views/BasePage.vue'
 import MeterDataView from '@admin/views/MeterDataView.vue'
+import BalancesView from '@admin/views/BalancesView.vue'
 import CorrectionDataView from '@admin/views/CorrectionDataView.vue'
 
 createMiddleware('require-auth', (args, to, from, next) => {
@@ -50,6 +51,11 @@ const routes = [
         path: 'meter_data',
         name: 'meter-data',
         component: MeterDataView,
+      },
+      {
+        path: 'balances',
+        name: 'balances',
+        component: BalancesView,
       },
       {
         path: 'corrected_data/:meterDataId',

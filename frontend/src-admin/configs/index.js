@@ -9,6 +9,10 @@ export const NAV_ITEMS = [
     text: i18n.t('navigation.admin.meter_data')
   },
   {
+    href: { name: 'balances' },
+    text: i18n.t('navigation.admin.balances')
+  },
+  {
     href: { name: 'settings' },
     text: i18n.t('navigation.general.settings')
   },
