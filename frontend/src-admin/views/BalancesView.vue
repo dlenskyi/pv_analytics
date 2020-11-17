@@ -15,9 +15,24 @@
           @filter-applied="applyFilters"
         />
       </div>
+      <div class="text-center" v-if="balances.length">
+        <b-form-group
+          id="chart-type-group"
+          :label="$t('charts.balances.checkbox_title')"
+          label-for="chart-type"
+        >
+          <b-form-checkbox-group
+            id="chart-type"
+            switches
+            :options="checkboxOptions"
+            v-model="chartType"
+          >
+          </b-form-checkbox-group>
+        </b-form-group>
+      </div>
       <balance-chart
         v-if="balances.length && filters &&
-          filters.date_start && filters.date_end"
+          filters.date_start && filters.date_end && chartType.length"
         :balances="getFormattedChartsData"
         :range-min="filters.date_start"
         :range-max="filters.date_end"/>
@@ -102,16 +117,40 @@
         ],
         showFilter: true,
         filters: null,
+        chartType: ['energy'],
       }
     },
 
-    // created () {
-    //   this.getBalances()
-    // },
-
     computed: {
-      ...mapState(['balances', 'sites']),
+      ...mapState(['balances', 'sites',]),
       ...mapGetters(['getFormattedChartsData']),
+
+      checkboxOptions () {
+        return [
+          {
+            text: this.$t('charts.balances.energy'),
+            value: 'energy',
+            disabled: this.chartType.join('') !== 'energy' && this.chartType.length
+          },
+          {
+            text: this.$t('charts.balances.energy_installed_capacity_ac'),
+            value: 'energy_installed_capacity_ac',
+            disabled: this.chartType.join('') !== 'energy_installed_capacity_ac' && this.chartType.length
+          },
+          {
+            text: this.$t('charts.balances.energy_installed_capacity_dc'),
+            value: 'energy_installed_capacity_dc',
+            uncheckedValue: 'energy',
+            disabled: this.chartType.join('') !== 'energy_installed_capacity_dc' && this.chartType.length
+          },
+        ]
+      }
+    },
+
+    watch: {
+      chartType () {
+        this.$store.commit(this.$_mutationTypes.SET_CHART_TYPE, this.chartType.join(''))
+      }
     },
 
     methods: {

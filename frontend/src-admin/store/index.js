@@ -37,6 +37,9 @@ const initialState = {
     pagesCount: 0,
     filters: null
   },
+  // There are three chart types: energy,
+  // energy_installed_capacity_ac and energy_installed_capacity_dc
+  chartType: 'energy',
   sites: [],
 }
 
@@ -76,7 +79,7 @@ export default new Vuex.Store({
       state.balances.filter(balance => {
         return balance.site === siteName
       }).map(obj => {
-        balanceArray.push(..._.zip(obj.time_indexes_utc, obj.energy))
+        balanceArray.push(..._.zip(obj.time_indexes_utc, obj[state.chartType]))
       })
       // Parse all dates and values for that Site, and return its
       const dates = balanceArray.map(elem => {
@@ -176,6 +179,9 @@ export default new Vuex.Store({
 
     [mutationTypes.SET_SITES](state, data) {
       state.sites = data
+    },
+    [mutationTypes.SET_CHART_TYPE](state, type) {
+      state.chartType = type
     },
 
   },

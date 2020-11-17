@@ -59,6 +59,20 @@ class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):
 
 class BalanceModelSerializer(serializers.ModelSerializer):
     site = serializers.CharField(source='site.displayable_name')
+    energy_installed_capacity_ac = serializers.SerializerMethodField()
+    energy_installed_capacity_dc = serializers.SerializerMethodField()
+
+    def get_energy_installed_capacity_ac(self, obj):
+        """
+        Get array of energy values divided by installed capacity AC of Site
+        """
+        return [energy / obj.site.installed_capacity_ac for energy in obj.energy]
+
+    def get_energy_installed_capacity_dc(self, obj):
+        """
+        Get array of energy values divided by installed capacity DC of Site
+        """
+        return [energy / obj.site.installed_capacity_dc for energy in obj.energy]
 
     class Meta:
         model = Balance

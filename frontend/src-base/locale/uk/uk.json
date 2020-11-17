@@ -220,7 +220,11 @@
       "no_chart_sites": "Для отримання графіку виберіть площадки."
     },
     "balances": {
-      "title": "Баланси за {startDate} - {endDate}"
+      "energy": "кВт*год",
+      "energy_installed_capacity_ac": "кВт*год / кВт-dc",
+      "energy_installed_capacity_dc": "кВт*год | кВт*год / кВт-ac",
+      "title": "Баланси за {startDate} - {endDate}",
+      "checkbox_title": "Питомі баланси:"
     }
   },
   "datepicker": {
