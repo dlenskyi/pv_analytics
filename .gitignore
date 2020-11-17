@@ -9,8 +9,6 @@ venv/
 env/
 .venv/
 
-.env.example
-
 # Config files
 .env
 
