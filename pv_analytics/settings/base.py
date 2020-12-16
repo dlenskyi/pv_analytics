@@ -61,13 +61,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'debug_toolbar',
     'django_filters',
     'pv_analytics.apps.users',
     'pv_analytics.apps.front',
     'pv_analytics.apps.initial_pv_data',
     'pv_analytics.apps.corrected_pv_data',
     'pv_analytics.api',
-    'debug_toolbar',
 ]
 
 HOST = env('HOST')
