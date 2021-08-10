@@ -9,11 +9,7 @@ class IsAuthenticated(BasePermission):
     def has_permission(self, request, view):
         if request.user.id is None:
             return False
-        return (
-            request.user
-            and request.user.is_authenticated
-            and request.user.is_active
-        )
+        return request.user and request.user.is_authenticated and request.user.is_active
 
 
 class IsAdmin(BasePermission):

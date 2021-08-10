@@ -20,161 +20,153 @@ env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Read constants from .env file
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env"))
 
-PROJECT_ROOT = BASE_DIR / 'pv_analytics'
+PROJECT_ROOT = BASE_DIR / "pv_analytics"
 
 # Django admin banner
-ENVIRONMENT_NAME = env('ENVIRONMENT_NAME')
-ENVIRONMENT_COLOR = env('ENVIRONMENT_COLOR')
+ENVIRONMENT_NAME = env("ENVIRONMENT_NAME")
+ENVIRONMENT_COLOR = env("ENVIRONMENT_COLOR")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env("DEBUG")
 
 # SECURITY WARNING: don't run with STAGING or DEV on in production!
-SERVER_TYPE = env('SERVER_TYPE')
+SERVER_TYPE = env("SERVER_TYPE")
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
-INTERNAL_IPS = ('127.0.0.1', 'localhost')
+INTERNAL_IPS = ("127.0.0.1", "localhost")
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'pv_analytics',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'webpack_loader',
-    'django.contrib.sites',
-    'corsheaders',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'debug_toolbar',
-    'django_filters',
-    'pv_analytics.apps.users',
-    'pv_analytics.apps.front',
-    'pv_analytics.apps.initial_pv_data',
-    'pv_analytics.apps.corrected_pv_data',
-    'pv_analytics.api',
+    "pv_analytics",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "webpack_loader",
+    "django.contrib.sites",
+    "corsheaders",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "rest_auth",
+    "debug_toolbar",
+    "django_filters",
+    "pv_analytics.apps.users",
+    "pv_analytics.apps.front",
+    "pv_analytics.apps.initial_pv_data",
+    "pv_analytics.apps.corrected_pv_data",
+    "pv_analytics.api",
 ]
 
-HOST = env('HOST')
+HOST = env("HOST")
 
 SITE_ID = 1
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework.authentication.SessionAuthentication",),
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
     ),
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'pv_analytics.apps.users.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ),
+    "DEFAULT_PERMISSION_CLASSES": ("pv_analytics.apps.users.permissions.IsAuthenticated",),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',  # To keep the Browsable API
-)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)  # To keep the Browsable API
 
-ROOT_URLCONF = 'pv_analytics.urls'
+ROOT_URLCONF = "pv_analytics.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_ROOT, 'templates'), BASE_DIR],
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'pv_analytics.context_processors.from_settings',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(PROJECT_ROOT, "templates"), BASE_DIR],
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "pv_analytics.context_processors.from_settings",
             ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'pv_analytics.wsgi.application'
+WSGI_APPLICATION = "pv_analytics.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASE_LOCAL = env('DATABASE_LOCAL')
+DATABASE_LOCAL = env("DATABASE_LOCAL")
 
 if DATABASE_LOCAL:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('DB_LOCAL_NAME'),
-            'USER': env('DB_LOCAL_USER'),
-            'PASSWORD': env('DB_LOCAL_PASS'),
-            'HOST': env('DB_LOCAL_HOST'),
-            'PORT': env('DB_LOCAL_PORT'),
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_LOCAL_NAME"),
+            "USER": env("DB_LOCAL_USER"),
+            "PASSWORD": env("DB_LOCAL_PASS"),
+            "HOST": env("DB_LOCAL_HOST"),
+            "PORT": env("DB_LOCAL_PORT"),
         },
-        'remote': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('REMOTE_DB_NAME'),
-            'USER': env('REMOTE_DB_USER'),
-            'PASSWORD': env('REMOTE_DB_PASS'),
-            'HOST': env('REMOTE_DB_HOST'),
-            'PORT': env('REMOTE_DB_PORT'),
+        "remote": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("REMOTE_DB_NAME"),
+            "USER": env("REMOTE_DB_USER"),
+            "PASSWORD": env("REMOTE_DB_PASS"),
+            "HOST": env("REMOTE_DB_HOST"),
+            "PORT": env("REMOTE_DB_PORT"),
         },
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('DB_NAME'),
-            'USER': env('DB_USER'),
-            'PASSWORD': env('DB_PASS'),
-            'HOST': env('DB_HOST'),
-            'PORT': '5432',  # Set to empty string for default.
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASS"),
+            "HOST": env("DB_HOST"),
+            "PORT": "5432",  # Set to empty string for default.
         },
-        'remote': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('REMOTE_DB_NAME'),
-            'USER': env('REMOTE_DB_USER'),
-            'PASSWORD': env('REMOTE_DB_PASS'),
-            'HOST': env('REMOTE_DB_HOST'),
-            'PORT': env('REMOTE_DB_PORT'),
+        "remote": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("REMOTE_DB_NAME"),
+            "USER": env("REMOTE_DB_USER"),
+            "PASSWORD": env("REMOTE_DB_PASS"),
+            "HOST": env("REMOTE_DB_HOST"),
+            "PORT": env("REMOTE_DB_PORT"),
         },
     }
 
@@ -184,7 +176,7 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     # {
     #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -201,16 +193,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'uk'
+LANGUAGE_CODE = "uk"
 
 LANGUAGES = (
-    ('uk', _('Українська')),
-    ('ru', _('Російська')),
+    ("uk", _("Українська")),
+    ("ru", _("Російська")),
 )
 
-LOCALE_PATHS = ((PROJECT_ROOT / 'locale'),)
+LOCALE_PATHS = ((PROJECT_ROOT / "locale"),)
 
-TIME_ZONE = 'Europe/Kiev'
+TIME_ZONE = "Europe/Kiev"
 
 USE_I18N = True
 
@@ -222,57 +214,57 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / "static"
 
-STATICFILES_DIRS = ((PROJECT_ROOT / 'static'),)
+STATICFILES_DIRS = ((PROJECT_ROOT / "static"),)
 
-FRONTEND_DIR = BASE_DIR / 'frontend'
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 WEBPACK_LOADER = {
-    'SECTIONS': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': '',
-        'STATS_FILE': FRONTEND_DIR / 'webpack-stats.json',
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map'],
+    "SECTIONS": {
+        "CACHE": not DEBUG,
+        "BUNDLE_DIR_NAME": "",
+        "STATS_FILE": FRONTEND_DIR / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": None,
+        "IGNORE": [".+\.hot-update.js", ".+\.map"],
     }
 }
 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / "media"
 
 # TOOLBARS
 DEBUG_TOOLBAR_PANELS = [
-    'debug_toolbar.panels.versions.VersionsPanel',
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.settings.SettingsPanel',
-    'debug_toolbar.panels.headers.HeadersPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-    'debug_toolbar.panels.cache.CachePanel',
-    'debug_toolbar.panels.signals.SignalsPanel',
-    'debug_toolbar.panels.logging.LoggingPanel',
-    'debug_toolbar.panels.redirects.RedirectsPanel',
+    "debug_toolbar.panels.versions.VersionsPanel",
+    "debug_toolbar.panels.timer.TimerPanel",
+    "debug_toolbar.panels.settings.SettingsPanel",
+    "debug_toolbar.panels.headers.HeadersPanel",
+    "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+    "debug_toolbar.panels.templates.TemplatesPanel",
+    "debug_toolbar.panels.cache.CachePanel",
+    "debug_toolbar.panels.signals.SignalsPanel",
+    "debug_toolbar.panels.logging.LoggingPanel",
+    "debug_toolbar.panels.redirects.RedirectsPanel",
 ]
 
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TEMPLATE_CONTEXT': True,
+    "SHOW_TEMPLATE_CONTEXT": True,
 }
 
 # Auth
 
-DJANGO_SUPERUSER_USERNAME = env('DJANGO_SUPERUSER_USERNAME')
-DJANGO_SUPERUSER_PASSWORD = env('DJANGO_SUPERUSER_PASSWORD')
+DJANGO_SUPERUSER_USERNAME = env("DJANGO_SUPERUSER_USERNAME")
+DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
 
 OLD_PASSWORD_FIELD_ENABLED = True
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
 
 MIN_NAME_FIELD_LENGTH = 4
 MAX_NAME_FIELD_LENGTH = 20

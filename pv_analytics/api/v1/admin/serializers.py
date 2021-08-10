@@ -33,9 +33,7 @@ class MeterP30DataModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MeterP30Data
-        exclude = (
-            'meter',
-        )
+        exclude = ("meter",)
 
 
 class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):
@@ -54,11 +52,11 @@ class CorrectedMeterP30DataModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CorrectedMeterP30Data
-        fields = '__all__'
+        fields = "__all__"
 
 
 class BalanceModelSerializer(serializers.ModelSerializer):
-    site = serializers.CharField(source='site.displayable_name')
+    site = serializers.CharField(source="site.displayable_name")
     energy_installed_capacity_ac = serializers.SerializerMethodField()
     energy_installed_capacity_dc = serializers.SerializerMethodField()
 
@@ -76,4 +74,4 @@ class BalanceModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Balance
-        fields = '__all__'
+        fields = "__all__"

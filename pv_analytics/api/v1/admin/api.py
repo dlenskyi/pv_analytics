@@ -33,13 +33,11 @@ class MeterP30DataViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     API for getting list of initial meter p30 data
     """
-    permission_classes = [
-        IsAuthenticated,
-        IsAdmin
-    ]
+
+    permission_classes = [IsAuthenticated, IsAdmin]
     serializer_class = MeterP30DataModelSerializer
     pagination_class = ViewSetPagination
-    queryset = MeterP30Data.objects.using('remote').select_related('meter').all().order_by('-id')
+    queryset = MeterP30Data.objects.using("remote").select_related("meter").all().order_by("-id")
     filterset_class = MeterP30DataFilter
 
 
@@ -47,10 +45,8 @@ class CorrectedMeterP30DataViewSet(viewsets.ModelViewSet):
     """
     API for performing CRUD operations under corrected data
     """
-    permission_classes = [
-        IsAuthenticated,
-        IsAdmin
-    ]
+
+    permission_classes = [IsAuthenticated, IsAdmin]
     serializer_class = CorrectedMeterP30DataModelSerializer
     queryset = CorrectedMeterP30Data.objects.all()
 
@@ -68,22 +64,16 @@ class CorrectedMeterP30DataViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CorrectedDataByMeterId(
-    generics.ListAPIView
-):
+class CorrectedDataByMeterId(generics.ListAPIView):
     """
     API for getting list of corrected data by meter ID
     """
-    permission_classes = [
-        IsAuthenticated,
-        IsAdmin
-    ]
+
+    permission_classes = [IsAuthenticated, IsAdmin]
     serializer_class = CorrectedMeterP30DataModelSerializer
 
     def get_queryset(self):
-        return CorrectedMeterP30Data.objects.filter(
-            meter_data_id=self.kwargs['meter_data_id']
-        )
+        return CorrectedMeterP30Data.objects.filter(meter_data_id=self.kwargs["meter_data_id"])
 
 
 class BalancesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -93,28 +83,21 @@ class BalancesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     If there are many similar records with different versions,
     then get record with the largest version
     """
-    permission_classes = [
-        IsAuthenticated,
-        IsAdmin
-    ]
+
+    permission_classes = [IsAuthenticated, IsAdmin]
     serializer_class = BalanceModelSerializer
     filterset_class = BalancesFilter
 
     def get_queryset(self):
         # If no sites passed in query_params - then just return empty list
-        sites = self.request.query_params.getlist('site')
-        if all('' == s or s.isspace() for s in sites):
-            return Balance.objects.using('remote').none()
+        sites = self.request.query_params.getlist("site")
+        if all("" == s or s.isspace() for s in sites):
+            return Balance.objects.using("remote").none()
 
         # Query record with largest version in group (By Site and date)
-        group_by_expression = Balance.objects.using('remote').values(
-            'site', 'date'
-        ).annotate(
-            version=Max("version")
-        )
-        filter_qry = functools.reduce(operator.or_, [Q(**item) for item in
-                                                     group_by_expression])
-        qs = Balance.objects.using('remote').filter(filter_qry)
+        group_by_expression = Balance.objects.using("remote").values("site", "date").annotate(version=Max("version"))
+        filter_qry = functools.reduce(operator.or_, [Q(**item) for item in group_by_expression])
+        qs = Balance.objects.using("remote").filter(filter_qry)
         return qs
 
 
@@ -122,13 +105,9 @@ class SitesListViewSet(views.APIView):
     """
     API for getting list of site names
     """
-    permission_classes = [
-        IsAuthenticated,
-        IsAdmin
-    ]
+
+    permission_classes = [IsAuthenticated, IsAdmin]
 
     def get(self, request, *args, **kwargs):
-        queryset = Sites.objects.using('remote').all().values_list(
-            'displayable_name', flat=True
-        )
+        queryset = Sites.objects.using("remote").all().values_list("displayable_name", flat=True)
         return Response(data=queryset)

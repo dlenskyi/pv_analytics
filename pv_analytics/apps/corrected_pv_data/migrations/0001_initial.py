@@ -8,24 +8,26 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CorrectedMeterP30Data',
+            name="CorrectedMeterP30Data",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('meter_data_id', models.IntegerField()),
-                ('values', django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), blank=True, size=None)),
-                ('date', models.DateTimeField(auto_now_add=True)),
-                ('message', models.TextField(blank=True)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("meter_data_id", models.IntegerField()),
+                (
+                    "values",
+                    django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), blank=True, size=None),
+                ),
+                ("date", models.DateTimeField(auto_now_add=True)),
+                ("message", models.TextField(blank=True)),
             ],
             options={
-                'verbose_name': 'зкоректоване значення',
-                'verbose_name_plural': 'Зкоректовані значення',
-                'db_table': 'p30_corrections',
-                'ordering': ['-id'],
+                "verbose_name": "зкоректоване значення",
+                "verbose_name_plural": "Зкоректовані значення",
+                "db_table": "p30_corrections",
+                "ordering": ["-id"],
             },
         ),
     ]

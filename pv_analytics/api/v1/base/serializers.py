@@ -27,13 +27,13 @@ class UserSerializer(serializers.ModelSerializer):
             if self.user() == exist_users.first():
                 return email
             else:
-                raise serializers.ValidationError(_('Email вже існує'))
+                raise serializers.ValidationError(_("Email вже існує"))
         else:
-            raise serializers.ValidationError(_('Email вже існує'))
+            raise serializers.ValidationError(_("Email вже існує"))
 
     def user(self):
         request = self.context.get("request")
-        if request and hasattr(request, 'user'):
+        if request and hasattr(request, "user"):
             return request.user
         return None
 
@@ -47,13 +47,13 @@ class UserSerializer(serializers.ModelSerializer):
             if self.user() == exist_users.first():
                 return username
             else:
-                raise serializers.ValidationError(_('Логін вже існує'))
+                raise serializers.ValidationError(_("Логін вже існує"))
         else:
-            raise serializers.ValidationError(_('Логін вже існує'))
+            raise serializers.ValidationError(_("Логін вже існує"))
 
     class Meta:
         model = get_user_model()
         fields = (
-            'email',
-            'username',
+            "email",
+            "username",
         )

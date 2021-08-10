@@ -22,32 +22,29 @@ class AuthApiView(generics.GenericAPIView):
     ]
 
     def post(self, request, *args, **kwargs):
-        required_params = ['username', 'password']
+        required_params = ["username", "password"]
 
         if not all(r_param in request.data for r_param in required_params):
             return Response(
-                {'error': _('Будь ласка, надайте логін та пароль.')},
+                {"error": _("Будь ласка, надайте логін та пароль.")},
                 status=HTTP_400_BAD_REQUEST,
             )
 
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request.data.get("username")
+        password = request.data.get("password")
         user = authenticate(username=username, password=password)
 
         if not user:
             return Response(
-                {'error': _('Невірні дані.')}, status=HTTP_400_BAD_REQUEST,
+                {"error": _("Невірні дані.")},
+                status=HTTP_400_BAD_REQUEST,
             )
         if not user.is_active:
-            return Response(
-                {'error': _('Акаунт заблоковано.')}, status=HTTP_403_FORBIDDEN
-            )
+            return Response({"error": _("Акаунт заблоковано.")}, status=HTTP_403_FORBIDDEN)
 
         login(request, user)
 
-        return Response(
-            {'username': user.username, 'is_admin': user.is_superuser}
-        )
+        return Response({"username": user.username, "is_admin": user.is_superuser})
 
 
 class LogoutApiView(generics.GenericAPIView):
@@ -62,10 +59,10 @@ class LogoutApiView(generics.GenericAPIView):
 
 class CustomPasswordChangeView(generics.GenericAPIView):
     """
-        Calls Django Auth SetPasswordForm save method.
+    Calls Django Auth SetPasswordForm save method.
 
-        Accepts the following POST parameters: new_password1, new_password2
-        Returns the success/fail message.
+    Accepts the following POST parameters: new_password1, new_password2
+    Returns the success/fail message.
     """
 
     serializer_class = PasswordChangeSerializer
@@ -78,12 +75,10 @@ class CustomPasswordChangeView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        old_pass = request.data.get('old_password')
-        new_pass = request.data.get('new_password1')
+        old_pass = request.data.get("old_password")
+        new_pass = request.data.get("new_password1")
         if old_pass == new_pass:
-            return Response(
-                {"error": _("Неможливо змінити пароль на такий же.")}
-            )
+            return Response({"error": _("Неможливо змінити пароль на такий же.")})
         serializer.save()
 
         return Response({"detail": _("Новий пароль збережено.")})
@@ -103,7 +98,7 @@ class UserApiView(generics.GenericAPIView):
         serializer = self.get_serializer(
             instance=request.user,
             data=request.data,
-            context={'request': request},
+            context={"request": request},
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()

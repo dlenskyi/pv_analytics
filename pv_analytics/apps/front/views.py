@@ -8,8 +8,8 @@ class AnonymousSection(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('PV Analytics')
-        context['settings'] = settings
+        context["title"] = _("PV Analytics")
+        context["settings"] = settings
         return context
 
 
@@ -18,6 +18,6 @@ class AdminSection(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = _('Admin')
-        context['settings'] = settings
+        context["title"] = _("Admin")
+        context["settings"] = settings
         return context

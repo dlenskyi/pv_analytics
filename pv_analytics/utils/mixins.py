@@ -13,17 +13,13 @@ class ExportCsvMixin:
         meta = self.model._meta
         field_names = [field.name for field in meta.fields]
 
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(
-            meta
-        )
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = "attachment; filename={}.csv".format(meta)
         writer = csv.writer(response)
 
         writer.writerow(field_names)
         for obj in queryset:
-            row = writer.writerow(
-                [getattr(obj, field) for field in field_names]
-            )
+            row = writer.writerow([getattr(obj, field) for field in field_names])
 
         return response
 
@@ -32,25 +28,25 @@ class ExportCsvMixin:
 
 class ViewSetPagination(PageNumberPagination):
     page_size = settings.PAGE_SIZE
-    page_size_query_param = 'page_size'
-    last_page_strings = ('last',)
+    page_size_query_param = "page_size"
+    last_page_strings = ("last",)
     max_page_size = settings.MAX_PAGE_SIZE
 
     def paginate_queryset(self, queryset, request, view=None):
         # Return all records if page query parameter is not in request
-        if 'page' not in request.query_params:
+        if "page" not in request.query_params:
             return None
         return super().paginate_queryset(queryset, request, view)
 
     def get_paginated_response(self, data):
         return Response(
             {
-                'links': {
-                    'next': self.get_next_link(),
-                    'previous': self.get_previous_link(),
+                "links": {
+                    "next": self.get_next_link(),
+                    "previous": self.get_previous_link(),
                 },
-                'count': self.page.paginator.count,
-                'total_pages': self.page.paginator.num_pages,
-                'results': data,
+                "count": self.page.paginator.count,
+                "total_pages": self.page.paginator.num_pages,
+                "results": data,
             }
         )

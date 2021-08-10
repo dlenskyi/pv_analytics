@@ -26,7 +26,11 @@ class Client:
         if json:
             data = json.dumps(json)
         response = requests.request(
-            method=method, url=url, data=data, headers=self.headers, **kwargs,
+            method=method,
+            url=url,
+            data=data,
+            headers=self.headers,
+            **kwargs,
         )
         try:
             response.raise_for_status()
@@ -35,21 +39,21 @@ class Client:
         return response
 
     def get(self, url, **kwargs):
-        response = self.make_request(method='GET', url=url, **kwargs)
+        response = self.make_request(method="GET", url=url, **kwargs)
         if response and response.status_code == status.HTTP_200_OK:
             return response.json()
 
     def post(self, url, data):
-        response = self.make_request(method='POST', url=url, json=data)
+        response = self.make_request(method="POST", url=url, json=data)
         if response is not None:
             return response
 
     def put(self, url, data):
-        response = self.make_request(method='PUT', url=url, json=data)
+        response = self.make_request(method="PUT", url=url, json=data)
         if response is not None:
             return response
 
     def delete(self, url):
-        response = self.make_request(method='DELETE', url=url)
+        response = self.make_request(method="DELETE", url=url)
         if response is not None:
             return response
